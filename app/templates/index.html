@@ -1,0 +1,138 @@
+{# templates/shortener.html #}
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-purple-200 via-purple-100 to-purple-300 flex  p-4">
+    <div class="w-full max-w-4xl mx-auto">
+        <!-- Navbar -->
+        <nav class="sticky container mx-auto top-0 z-50 bg-white rounded-t-lg sm:rounded-lg shadow-lg mb-6 px-4">
+            <div>
+                <div class="flex justify-between items-center h-16">
+                    <!-- Left Section: Home Link -->
+                    <div class="flex-shrink-0">
+                        <a href="#" class="text-purple-600 text-2xl font-bold">
+                            Linkit.
+                        </a>
+                    </div>
+
+                    <!-- Middle Section: Links for desktop -->
+                    <div class="hidden sm:flex space-x-8">
+                        <a href="#" class="text-gray-600 hover:text-purple-600">Profile</a>
+                        <a href="#" class="text-gray-600 hover:text-purple-600">My URLs</a>
+                        <a href="#" class="text-gray-600 hover:text-purple-600">Analytics</a>
+                        <a href="#" class="text-gray-600 hover:text-purple-600">API</a>
+                        <a href="https://x.com/victhengineer" class="text-gray-600 hover:text-purple-600">Talk to us</a>
+                    </div>
+
+                    <!-- Right Section: Logout button for desktop and hamburger for mobile -->
+                    <div class="flex items-center space-x-4">
+                        <button class="hidden sm:block bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">Don't Hover!</button>
+                        <!-- Hamburger Menu Button for Mobile -->
+                        <button id="menu-toggle" class="sm:hidden block text-purple-600 focus:outline-none">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-lg">
+                <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-orange-100">Profile</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-orange-100">My URLs</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-orange-100">Analytics</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-orange-100">API</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-orange-100">Talk to us</a>
+                <!-- Show Logout button only on mobile in this menu -->
+                <a href="#" class="block px-4 py-2 bg-purple-500 rounded-b-lg text-white hover:bg-purple-600">Don't Click!</a>
+            </div>
+        </nav>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+            <div class="bg-white p-8 rounded-xl shadow-lg order-2 md:order-1">
+                <form action="/shorten" method="POST">
+                    
+                    <div class="mb-6">
+                        <label for="long_url" class="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <i class="fa-solid fa-link mr-1"></i>
+                            Enter your long URL here
+                        </label>
+                        <input type="url" id="long_url" name="long_url" required
+                               class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400"
+                               placeholder="https://example.com/very/long/url/to/shorten">
+                    </div>
+
+                    <div class="mb-8">
+                         <label for="alias" class="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <i class="fa-solid fa-link mr-1"></i>
+                            Customize your link (optional)
+                        </label>
+                        <div class="flex items-center">
+                            <span class="inline-flex items-center h-10 px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm">
+                                linkit.kipchumba.me/
+                            </span>
+                            <input type="text" id="alias" name="alias"
+                                   class="flex-1 block w-full h-10 min-w-0 rounded-none rounded-r-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400"
+                                   placeholder="your-custom-alias">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-6">
+                         <button type="button" onclick="window.location.href='/my-urls'"
+                                class="text-stone-600 hover:text-stone-800 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                            My URLs
+                        </button>
+                        <button type="submit"
+                                class="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out">
+                            Linkit
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="flex-col-reverse md:flex items-center justify-center order-1 md:order-2 rounded-xl">
+                 <img src="{{ url_for('static', filename='images/right.png') }}" alt="Link shortening illustration" class="w-full max-w-md h-auto rounded-xl">
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 bg-white rounded-t-lg shadow-inner border-t border-gray-200">
+            <div class="max-w-4xl mx-auto px-4 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-6 sm:space-y-0">
+                
+                <!-- Left: Copyright -->
+                <p class="text-sm text-gray-500 text-center sm:text-left">
+                    &copy; 2025 Linkit. All rights reserved.
+                </p>
+
+                <!-- Middle: Creator + Socials -->
+                <div class="flex flex-col items-center sm:flex-row sm:space-x-4">
+                    <p class="text-sm text-gray-500 flex items-center space-x-1">
+                        <i class="fa-solid fa-robot animate-hover-spin"></i>
+                        <a href="https://x.com/victhengineer" class="hover:text-purple-600 transition-colors duration-300">
+                            victhengineer
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Right: Footer Links + Back to Top -->
+                <div class="flex flex-col items-center sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0">
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-purple-600 transition-colors duration-300">Privacy</a>
+                        <a href="#" class="text-gray-400 hover:text-purple-600 transition-colors duration-300">Terms</a>
+                        <a href="#" class="text-gray-400 hover:text-purple-600 transition-colors duration-300">Contact</a>
+                    </div>
+                    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+                        class="text-sm text-purple-500 hover:text-purple-700 transition font-medium">
+                        ↑ Back to top
+                    </button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+<!--JavaScript-->
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+{% endblock %}
