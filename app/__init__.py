@@ -17,7 +17,7 @@ def create_app(config_class=Config):
         Returns:
             Configured app
     '''
-    # Init flask app 
+    # Init flask app
     app = Flask(__name__)
 
     # Set up config

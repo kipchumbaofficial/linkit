@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""run:
+"""wsgi:
     Runs the app
 """
 from app import create_app

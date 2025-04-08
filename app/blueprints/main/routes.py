@@ -3,6 +3,7 @@
     Contains all the routes under main blueprint
 '''
 from . import main_bp
+from flask import render_template
 
 
 @main_bp.route('/')
@@ -10,4 +11,4 @@ def home():
     '''home:
             Serves the home page of the app
     '''
-    return 'Hello! Welcome to linkit :)'
+    return render_template('index.html')
