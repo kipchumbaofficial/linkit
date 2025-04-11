@@ -51,30 +51,30 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
             <div class="bg-white p-8 rounded-xl shadow-lg order-2 md:order-1">
-                <form action="/shorten" method="POST">
-                    
+                <form action="#" method="POST">
+                    {{ form.hidden_tag() }}
                     <div class="mb-6">
                         <label for="long_url" class="text-sm font-medium text-gray-700 mb-2 flex items-center">
                             <i class="fa-solid fa-link mr-1"></i>
-                            Enter your long URL here
+                            {{ form.long_url.label }}
                         </label>
-                        <input type="url" id="long_url" name="long_url" required
-                               class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400"
-                               placeholder="https://example.com/very/long/url/to/shorten">
+                        {{ form.long_url(
+                            class_="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400",
+                            placeholder="https://example.com/very/long/url/to/shorten") }}
                     </div>
 
                     <div class="mb-8">
                          <label for="alias" class="text-sm font-medium text-gray-700 mb-2 flex items-center">
                             <i class="fa-solid fa-link mr-1"></i>
-                            Customize your link (optional)
+                            {{ form.alias.label }}
                         </label>
                         <div class="flex items-center">
                             <span class="inline-flex items-center h-10 px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm">
                                 linkit.kipchumba.me/
                             </span>
-                            <input type="text" id="alias" name="alias"
-                                   class="flex-1 block w-full h-10 min-w-0 rounded-none rounded-r-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400"
-                                   placeholder="your-custom-alias">
+                            {{ form.alias(
+                                class_="flex-1 block w-full h-10 min-w-0 rounded-none rounded-r-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400",
+                                placeholder="your-custom-alias") }}
                         </div>
                     </div>
 
@@ -83,10 +83,7 @@
                                 class="text-stone-600 hover:text-stone-800 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
                             My URLs
                         </button>
-                        <button type="submit"
-                                class="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out">
-                            Linkit
-                        </button>
+                        {{form.submit(class_="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out")}}
                     </div>
                 </form>
             </div>
@@ -106,7 +103,7 @@
                     &copy; 2025 Linkit. All rights reserved.
                 </p>
 
-                <!-- Middle: Creator + Socials -->
+                <!-- Middle: Creator-->
                 <div class="flex flex-col items-center sm:flex-row sm:space-x-4">
                     <p class="text-sm text-gray-500 flex items-center space-x-1">
                         <i class="fa-solid fa-robot animate-hover-spin"></i>
@@ -133,6 +130,29 @@
 
     </div>
 </div>
+
+<!--Login Modal-->
+<div id="login-modal" class="hidden fixed inset-0 bg-transparent bg-opacity-75 items-center justify-center z-50">
+    <div class="bg-gradient-to-br from-purple-200 via-purple-100 to-purple-300 p-8 rounded-lg text-center w-full max-w-md relative shadow-lg">
+        <!-- Close Button -->
+         <button id="close-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+            <i class="fa-solid fa-x"></i>
+         </button>
+
+        <!-- Modal Content -->
+         <h3 class="text-2xl text-stone-600 font-semibold mb-6">Sign in to Continue</h3>
+         <button id="google-login-btn" class="bg-black text-white py-2 px-4 rounded-md w-full mb-4 items-center justify-center hover:bg-purple-700">
+             <i class="fab fa-google mr-2"></i> Sign in with Google
+         </button>
+         <p class="text-xs text-gray-500">
+            By creating an account, you agree with our
+            <a href="#" class="text-blue-500 hover:underline">Terms of Service</a>,
+            <a href="#" class="text-blue-500 hover:underline">Privacy Policy</a>
+            and <a href="#" class="text-blue-500 hover:underline">Notification Settings</a>
+         </p>
+    </div>
+</div>
+
 <!--JavaScript-->
 <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
 {% endblock %}

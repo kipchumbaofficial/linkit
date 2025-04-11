@@ -4,11 +4,13 @@
 '''
 from . import main_bp
 from flask import render_template
+from app.forms import LinkForm
 
 
-@main_bp.route('/')
+@main_bp.route('/', methods=['GET'])
 def home():
     '''home:
             Serves the home page of the app
     '''
-    return render_template('index.html')
+    form = LinkForm()
+    return render_template('index.html', form=form)
