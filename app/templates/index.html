@@ -51,7 +51,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
             <div class="bg-white p-8 rounded-xl shadow-lg order-2 md:order-1">
-                <form action="#" method="POST">
+                <form id="url-form" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="mb-6">
                         <label for="long_url" class="text-sm font-medium text-gray-700 mb-2 flex items-center">
@@ -61,6 +61,7 @@
                         {{ form.long_url(
                             class_="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-400",
                             placeholder="https://example.com/very/long/url/to/shorten") }}
+                        <span class="error text-xs text-red-500 ml-2" id="url-error"></span>
                     </div>
 
                     <div class="mb-8">
@@ -83,7 +84,16 @@
                                 class="text-stone-600 hover:text-stone-800 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
                             My URLs
                         </button>
-                        {{form.submit(class_="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out")}}
+                        <button id="submit-btn" type="submit" class="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out relative">
+                            <span class="button-text">Linkit</span>
+                            <span class="spinner hidden absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        
                     </div>
                 </form>
             </div>
@@ -155,4 +165,6 @@
 
 <!--JavaScript-->
 <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+<script src="{{ url_for('static', filename='js/submit.js') }}"></script>
+<script src="{{ url_for('static', filename='js/login.js') }}" type="module"></script>
 {% endblock %}
